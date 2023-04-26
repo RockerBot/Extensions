@@ -35,23 +35,14 @@ console.log("WE IN!");
 //   }
 count=0;
 const observer = new MutationObserver(function(mutations) {
-    console.log("ping", count++);
+    // console.log("ping", count++);
     for (let mutation of mutations) {
-        console.log(mutation);
-        
-        if (mutation.type === 'childList') {
-            for (let node of mutation.addedNodes) {
-                if (node.nodeType === Node.ELEMENT_NODE && node.className === 'ytp-ad-skip-button ytp-button') {
-                    // The element was added to the page, call checkElement
-                    node.click();
-                    break;
-                }
-            }
+        if ( (typeof(mutation.target.className) == "string") && mutation.target.className.includes("ad") ){
+            const elements = document.getElementsByClassName("ytp-ad-skip-button ytp-button");
+            if (elements.length !==0) {elements[0].click();console.log("skipped!");}
         }
     }
 });
   
-observer.observe(document.body, { childList: true, subtree: true });
-p = document.createElement("p");
-
-p.
+observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+// p = document.createElement("p");

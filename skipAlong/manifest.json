@@ -1,25 +1,23 @@
 {
+  "manifest_version": 2,
+  "name": "skipAlong",
+  "version": "1.0",
+  
+  "description": "Adds a red border to all webpages matching mozilla.org.",
+  
+  "icons": { "48": "icons/speedButton.png" },
 
-    "manifest_version": 2,
-    "name": "skipAlong",
-    "version": "1.0",
+  "permissions": [
+    "activeTab"
+  ],
   
-    "description": "Adds a red border to all webpages matching mozilla.org.",
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["skipAlong.js"]
+    }
+  ]
   
-    "icons": {
-      "48": "icons/speedButton.png"
-    },
-
-    "permissions": [
-        "activeTab"
-    ],
   
-    "content_scripts": [
-      {
-        "matches": ["*://*.youtube.com/*"],
-        "js": ["skipAlong.js"]
-      }
-    ]
-  
-  }
+}
   
