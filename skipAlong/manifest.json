@@ -1,9 +1,16 @@
 {
   "manifest_version": 2,
   "name": "skipAlong",
-  "version": "1.0",
+  "version": "1.0.1",
   
   "description": "Skips Youtube Ads.",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "rockerbotmail@gmail.com",
+	  "update_url": "https://github.com/RockerBot/Extensions/skipAlong_updates.json"
+    }
+  },
   
   "icons": { "48": "icons/speedButton.png" },
 
