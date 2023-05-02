@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "x10sion",
+    "version": "1.0.0",
+    "author": "RockerBor",    
+    "description": "helps with making extensions",
+  
+    "icons": { "48": "icons/addX10sionGrey.png" },  
+    "permissions": [ "activeTab", "storage", "scripting", "tabs" ],
+    
+    "content_scripts": [{
+        "matches": ["about:debugging*"],
+        "match_about_blank": true,
+        "js": ["x10sion.js"]
+    }],
+    
+    "browser_action": {
+        "default_icon": "icons/addX10sion.png",
+        "default_title": "x10sion",
+        "default_popup": "popup/xtensive.html"
+    }
+
+}
