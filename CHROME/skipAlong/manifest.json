@@ -2,6 +2,7 @@
     "manifest_version": 3,
     "name": "skipAlong",
     "version": "1.0.0",
+    "author": "RockerBot",
     
     "description": "Skips Youtube Ads.",
     

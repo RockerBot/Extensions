@@ -1,0 +1,41 @@
+{
+    "manifest_version": 2,
+    "name": "pesuAcademy",
+    "version": "1.0.0",
+    "author": "RockerBor",
+    
+    "description": "Stays loggedIn",
+  
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "pesuAcademyrockerbotmail@gmail.com",
+        "update_url": "https://github.com/RockerBot/Extensions/pesuAcademy_updates.json"
+      }
+    },
+    
+    "icons": { "48": "icons/GlobeTrotter.png" },
+  
+    "permissions": [ "activeTab", "storage", "tabs" ],
+    
+    "content_scripts": [
+        {
+          "matches": ["https://www.pesuacademy.com/Academy/"],
+          "js": ["login.js"]
+        },
+        {
+            "matches": ["https://www.pesuacademy.com/Academy/s/studentProfilePESU"],
+            "js": ["stayin.js"]
+        }
+
+    ],
+    
+    "browser_action": {
+      "default_icon": "icons/GlobeTrotter.png",
+      "default_title": "pesuAcademy"
+    },
+  
+    "background": {
+      "scripts": ["background.js"]
+    }
+  }
+    
