@@ -20,8 +20,11 @@
     "content_scripts": [
       {
         "matches": ["*://*.youtube.com/*"],
-        "js": ["utube.js"],
-        "css":["utube.css"]
+        "js": ["utube.js"]
+      },
+      {
+        "matches": ["https://www.pesuacademy.com/Academy/"],
+        "js": ["pesuLogin.js"]
       }
     ],
     
