@@ -1,0 +1,28 @@
+html, body {
+    width: 150px;
+}
+body{
+    display: flex;
+    flex-direction: column;
+}
+.hidden {
+    display: none;
+}
+.bodyChild{
+    width: 150px;
+}
+button {
+    border: none;
+    margin: 3% auto;
+    padding: 4px;
+    text-align: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    background-color: #E5F2F2;
+}
+button:hover{
+    background-color: #c7674f;
+}
+/* #DISENable{
+
+} */
