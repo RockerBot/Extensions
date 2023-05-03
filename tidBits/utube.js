@@ -1,19 +1,22 @@
-
 aabb = {}
-const observer = new MutationObserver(function(mutations) {
+const utube_observer = new MutationObserver(function(mutations) {
     browser.storage.local.get(['tidBits_enabled'], (result) => {
-        if(!result.tidBits_enabled)return;
-        el = document.querySelector('[title="Shorts"]')
-        if(el !==null)el.remove();
-        for (let elem of document.getElementsByTagName("ytd-reel-shelf-renderer")) {
-            elem.remove();
-        }
+        if(!result.tidBits_enabled)return;        
+        handleSelection('[title="Shorts"]')
+        handleSelection('[is-shorts=""]')
+        handleTagName("ytd-reel-shelf-renderer")
     });
 });  
-observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+utube_observer.observe(document.body, { childList: true, subtree: true, attributes: true });
 
 
-
+function handleSelection(selection){
+    el = document.querySelector(selection)
+    if(el !==null)el.remove();
+}
+function handleTagName(tagname){
+    for (let elem of document.getElementsByTagName(tagname)) elem.remove();
+}
 // for (elem of document.getElementsByTagName("video")){
 //     aabb[elem.src] = 1;
 // }

@@ -1,4 +1,4 @@
-console.log("running", new Date())
+// console.log("shorts", new Date())
 const shorts_observer = new MutationObserver(function(mutations) {
     browser.storage.local.get(['tidBits_enabled'], (result) => {
         for (elem of document.getElementsByClassName("tidBits-float"))
@@ -7,13 +7,11 @@ const shorts_observer = new MutationObserver(function(mutations) {
 });  
 shorts_observer.observe(document.body, { childList: true});
 document.addEventListener("keydown", e=>{
-    console.log(e.key)
     browser.storage.local.get(['tidBits_enabled'], (result) => {
         if(e.key=="ArrowDown" || e.key=="ArrowUp"){
             if(window.confirm('click yes to leave')){
                 e.preventDefault()
                 el = document.querySelector('[title="Subscriptions"]')
-                console.log("HMMMMMMMMM", el)
                 if(el !==null){
                     window.location = el.getAttribute("href");
                 }
