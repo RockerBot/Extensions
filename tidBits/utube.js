@@ -1,10 +1,10 @@
 
 aabb = {}
 const observer = new MutationObserver(function(mutations) {
-    el = document.querySelector('[title="Shorts"]')
-    if(el !==null)el.remove();
     browser.storage.local.get(['tidBits_enabled'], (result) => {
         if(!result.tidBits_enabled)return;
+        el = document.querySelector('[title="Shorts"]')
+        if(el !==null)el.remove();
         for (let elem of document.getElementsByTagName("ytd-reel-shelf-renderer")) {
             elem.remove();
         }
