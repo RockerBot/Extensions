@@ -1,13 +1,15 @@
 // console.log("shorts", new Date())
 const shorts_observer = new MutationObserver(function(mutations) {
-    browser.storage.local.get(['tidBits_enabled'], (result) => {
+    browser.storage.local.get(['tidBits_shorts_enabled'], (result) => {
+        if(!result.tidBits_shorts_enabled)return;    
         for (elem of document.getElementsByClassName("tidBits-float"))
         elem.classList.toggle("tidBits-hidden")
     });
 });  
 shorts_observer.observe(document.body, { childList: true});
 document.addEventListener("keydown", e=>{
-    browser.storage.local.get(['tidBits_enabled'], (result) => {
+    browser.storage.local.get(['tidBits_shorts_enabled'], (result) => {
+        if(!result.tidBits_shorts_enabled)return;    
         if(e.key=="ArrowDown" || e.key=="ArrowUp"){
             if(window.confirm('click yes to leave')){
                 e.preventDefault()
@@ -19,7 +21,8 @@ document.addEventListener("keydown", e=>{
         }
     });
 });
-browser.storage.local.get(['tidBits_enabled'], (result) => {
+browser.storage.local.get(['tidBits_shorts_enabled'], (result) => {
+    if(!result.tidBits_shorts_enabled)return;    
     content = document.getElementById("content")
     warn = document.createElement("div")
     warn.id = "tidBits-warn";

@@ -1,7 +1,7 @@
 aabb = {}
 const utube_observer = new MutationObserver(function(mutations) {
-    browser.storage.local.get(['tidBits_enabled'], (result) => {
-        if(!result.tidBits_enabled)return;        
+    browser.storage.local.get(['tidBits_shorts_enabled'], (result) => {
+        if(!result.tidBits_shorts_enabled)return;        
         handleSelection('[title="Shorts"]')
         handleSelection('[is-shorts=""]')
         handleTagName("ytd-reel-shelf-renderer")

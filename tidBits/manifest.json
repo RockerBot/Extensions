@@ -35,11 +35,8 @@
     
     "browser_action": {
       "default_icon": "icons/burn.png",
-      "default_title": "tidBits"
-    },
-  
-    "background": {
-      "scripts": ["background.js"]
+      "default_title": "tidBits",
+      "default_popup": "popup/tidBits.html"
     }
   }
     
