@@ -6,11 +6,22 @@ button{
     background: none;
     border: 2px solid black;
     border-radius:10px;
+    cursor:pointer;
+}
+@keyframes rot-animate {
+    0%{ rotate: 0deg; }
+    50%{ rotate: 22.5deg; }
+    100%{ rotate: 0deg; }
+}
+button:active{ border-color: rgb(28, 86, 173);}
+button:hover.disabled img{ animation: rot-animate 1s; }
+button:hover img{
+    rotate: 360deg;
+    transition-duration: 1s;
 }
 .hidden{ display: none; }
-.disabled .shade{
-    background-color: rgb(0, 0, 0, 0.5);
-}
+.disabled .shade{ background-color: rgb(0, 0, 0, 0.5); }
+.disabled:hover .shade{ background-color: rgba(0, 0, 0, 0.35); }
 .shade{
     /* background-color: rgb(0, 0, 0, 0.1); */
     position: absolute;
@@ -26,3 +37,6 @@ img{
     width:100%;
     margin:0px;
 }
+body{ background:none; }
+
+#popup-content{ background:none; }

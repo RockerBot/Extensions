@@ -1,42 +1,45 @@
 {
-    "manifest_version": 2,
-    "name": "tidBits",
-    "version": "1.0.0",
-    "author": "RockerBot",
-    
-    "description": "helpful features",
-  
-    "browser_specific_settings": {
-      "gecko": {
-        "id": "tidBits_rockerbotmail@gmail.com",
-        "update_url": "https://github.com/RockerBot/Extensions/tidBits_updates.json"
-      }
-    },
-    
-    "icons": { "48": "icons/burn.png" },
-  
-    "permissions": [ "activeTab", "storage" ],
-    
-    "content_scripts": [
-      {
-        "matches":["*://*.youtube.com/shorts/*"],
-        "js":["shorts.js"],
-        "css":["shorts.css"]
-      },
-      {
-        "matches": ["*://*.youtube.com/*"],
-        "js": ["utube.js"]
-      },
-      {
-        "matches": ["https://www.pesuacademy.com/Academy/"],
-        "js": ["pesuLogin.js"]
-      }
-    ],
-    
-    "browser_action": {
-      "default_icon": "icons/burn.png",
-      "default_title": "tidBits",
-      "default_popup": "popup/tidBits.html"
+  "manifest_version": 2,
+  "name": "tidBits",
+  "version": "1.0.3",
+  "author": "RockerBot",
+
+  "description": "helpful features",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tidBits_rockerbotmail@gmail.com",
+      "update_url": "https://github.com/RockerBot/Extensions/tidBits_updates.json"
     }
+  },
+  "icons": { "48": "icons/burn.png" },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "sessions",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": [ "*://*.youtube.com/shorts/*" ],
+      "js": [ "scripts/shorts.js" ],
+      "css": [ "scripts/shorts.css" ]
+    },
+    {
+      "matches": [ "*://*.youtube.com/*" ],
+      "js": [ "scripts/utube.js" ]
+    },
+    {
+      "matches": [ "https://www.pesuacademy.com/Academy/" ],
+      "js": [ "scripts/pesuLogin.js" ]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icons/burn.png",
+    "default_title": "tidBits",
+    "default_popup": "popup/tidBits.html"
+  },
+  "background": {
+    "scripts": [ "background.js" ]
   }
-    
+}
