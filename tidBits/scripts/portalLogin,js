@@ -1,0 +1,11 @@
+browser.storage.local.get(['tidBits_portal_enabled'], (result) => {
+    if(!result.tidBits_pesu_enabled)return;
+    const elem = document.getElementById('loginbutton');
+    if (elem && elem.innerText == 'Login'){
+        document.getElementById('username').value = "internship17";
+        document.getElementById('password').value = 'internship17';
+
+        elem.parentElement.click();
+    }
+});
+

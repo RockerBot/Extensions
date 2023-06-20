@@ -1,4 +1,4 @@
-const IDs_toglable = ['shorts', 'pesu']
+const IDs_toglable = ['shorts', 'pesu', 'portal']
 function id2key(id){ return "tidBits_" + id + "_enabled"; }
 function handleStartup(res, id){
     document.getElementById(id).className += (!!res[id2key(id)])?"":"disabled";
