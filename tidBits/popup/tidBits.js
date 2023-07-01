@@ -1,4 +1,5 @@
-const IDs_toglable = ['shorts', 'pesu', 'portal']
+const IDs_toglable = ['shorts', 'pesu']
+//IDS are shorts pesu restore cs2
 function id2key(id){ return "tidBits_" + id + "_enabled"; }
 function handleStartup(res, id){
     document.getElementById(id).className += (!!res[id2key(id)])?"":"disabled";
@@ -14,8 +15,28 @@ document.addEventListener("click", e => {
     const classNames = e.target.className
     if(!classNames.includes("Clickable") )return;
     if(classNames.includes("Toglable") )handleToglable(e.target);
-    else handleOtherClickable(e.target);    
+    else handleOtherClickable(e.target);
 });
+
+document.addEventListener("contextmenu", e => {
+    console.log(window.innerWidth)
+    const classNames = e.target.className;
+    if(!classNames.includes("Clickable") )return;
+    var obj = { type: 'popup', width: 400, height: 600 };
+    switch(e.target.id){
+        case "shorts":return;break;
+        case "pesu":return;break;
+        case "restore":
+            obj.url = "restore/popup_restore.html"
+            break;
+        case "cs2":return;break;
+        default: console.log(e, "ERR");return;
+    }
+    console.log("T and C", e);
+    browser.windows.create(obj);
+});
+
+
 
 function handleToglable(targ){
     targ.classList.toggle("disabled")
