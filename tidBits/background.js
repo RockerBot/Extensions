@@ -7,7 +7,7 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tabInfo)=>{
     });
 });
 browser.tabs.onRemoved.addListener((tabId, removeInfo)=>{
-    if(removeInfo.isWindowClosing)return
+    if(removeInfo.isWindowClosing)return;
     browser.storage.local.get(['tidBits_tabs'], (res) => {
         if(!res.tidBits_tabs)return;
         var obj = res.tidBits_tabs;

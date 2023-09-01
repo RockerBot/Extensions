@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "tidBits",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "RockerBot",
 
   "description": "helpful features",
@@ -32,6 +32,10 @@
     {
       "matches": [ "https://www.pesuacademy.com/Academy/" ],
       "js": [ "scripts/pesuLogin.js" ]
+    },
+    {
+      "matches": ["*://*/*"],
+      "js": ["scripts/portal.js"]
     }
   ],
   "browser_action": {

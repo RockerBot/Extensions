@@ -7,6 +7,7 @@ button{
     border: 2px solid black;
     border-radius:10px;
     cursor:pointer;
+    overflow: hidden;
 }
 @keyframes rot-animate {
     0%{ rotate: 0deg; }
@@ -39,4 +40,7 @@ img{
 }
 body{ background:none; }
 
-#popup-content{ background:none; }
+#popup-content{ background:none; width: 220px;}
+
+.clr-blu{background-color: #027bc6;}
+.clr-gree{background-color: #10a37f;}
