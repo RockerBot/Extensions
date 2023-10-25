@@ -1,5 +1,10 @@
 
-if(window.location.href==="http://192.168.254.1:8090/"){
+if(
+    window.location.href==="https://192.168.254.1:8090/"||
+    window.location.href==="https://192.168.254.1:8090/httpclient.html"||
+    window.location.href==="http://192.168.254.1:8090/"||
+    window.location.href==="http://192.168.254.1:8090/httpclient.html"
+){
     browser.storage.local.get(['tidBits_portal_enabled'], (result) => {
         if(!result.tidBits_portal_enabled)return;
         const elem = document.getElementById("loginbutton");

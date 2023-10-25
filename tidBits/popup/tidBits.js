@@ -84,5 +84,19 @@ function handleOtherClickable(targ){
                 url:"https://chat.openai.com/",
             });
         });
+    }else if(targ.id === 'debug'){
+        browser.tabs.query({ title:"Debugging - Runtime / this-firefox" })
+        .then(tabList=>{
+            // console.log(tabList)
+            if (tabList.length >0) browser.tabs.update( tabList[0].id,{active: true})
+            else {
+                browser.tabs.create({
+                    active: true,
+                    url:"about:blank",
+                });
+                navigator.clipboard.writeText("about:debugging#/runtime/this-firefox").then(function(){})
+                .catch(function (error){ console.error("Error copying text to clipboard: " + error); });
+            }
+        });
     }
 }

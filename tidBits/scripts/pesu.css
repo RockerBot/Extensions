@@ -1,0 +1,20 @@
+.tidbits_slider{
+    /* background-color: blue; */
+    width: 24px;
+    height: 24px;
+    margin: 5px;
+}
+.tidbits_slider:hover{
+    background-color: rgba(200, 200, 200, 0.2);
+}
+/* #viewer{
+    background-color: blueviolet;
+} */
+.tidbits_btn{
+    display: flex;
+    flex-direction: row;
+}
+.tidbits_unit{
+    display: flex;
+    flex-direction: column;
+}

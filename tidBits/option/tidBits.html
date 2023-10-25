@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="tidBits.css" />
+    </head>
+
+    <body>
+        <div id="popup-content">
+            <div class="opt">
+                <button id="shorts" class="Clickable Toglable ">
+                    <img src="../icons/shorts.png" alt="Shorts"/>
+                    <div class="shade"></div>
+                </button>
+                <code>Removes any link in recommended to shorts<br>Also makes it annoying to view shorts if you somehow manage to go to a short</code>
+            </div>
+            <div class="opt">
+                <button id="pesu" class="Clickable Toglable ">
+                    <img src="../icons/pesu.png" alt="PESUAcademy"/>
+                    <div class="shade"></div>
+                </button>
+                <code>Auto Login and Auto Relogin<br>button to open all slide/notes/MCQs for given unit</code>
+            </div>
+            <div class="opt">
+                <button id="restore" class="Clickable">
+                    <img src="../icons/restore.png" alt="RestorePreviousSession"/>
+                    <div class="shade"></div>
+                </button>
+                <code>Remembers all webpages accross multiple applications<br>Works when Firfox restore-session fails</code>
+            </div>
+            <div class="opt">
+                <button id="cs2" class="Clickable">
+                    <img src="../icons/cs2.png" alt="Captain Sparklez"/>
+                    <div class="shade"></div>
+                </button>
+                <code>Opens homepage of Captain Sparklez 2 Youtube Channel</code>
+            </div>
+            <div class="opt">
+                <button id="Qstk" class="Clickable Toglable ">
+                    <img src="../icons/Qstk.png" alt="QueueStack"/>
+                    <div class="shade"></div>
+                </button>
+                <code><span class="warn">Comming not now</span><br>should be like a stack for when u google a topic and u go down a rabbit hole</code>
+            </div>
+            <div class="opt">
+                <button id="chatty" class="Clickable clr-gree ">
+                    <img src="../icons/chatty.png" alt="ChatGPT"/>
+                    <div class="shade"></div>
+                </button>
+                <code>Opens CHAT-GPT</code>
+            </div>
+            <div class="opt">
+                <button id="portal" class="Clickable Toglable clr-blu ">
+                    <img src="../icons/portal.png" alt="SigninToPesuPortal"/>
+                    <div class="shade"></div>
+                </button>
+                <code>AutoSignIn to pesu Internet portal when prompted<br>Can change credentials and will remember even when browser is closed</code>
+            </div>
+            <div class="opt">
+                <button id="debug" class="Clickable clr-gray ">
+                    <img src="chrome://global/skin/icons/developer.svg" alt="Debug extension"/>
+                    <div class="shade"></div>
+                </button>
+                <code>Opens any ab which has the debug url page<br>If tab does not exist, creates blank tab with the url in your ClipBoard</code>
+            </div>
+        </div>
+        <div id="error-content" class="hidden">
+            <p>idk y no work, try a diff page.</p>
+        </div>
+        <script src="../popup/tidBits.js"> </script>
+    </body>
+</html>

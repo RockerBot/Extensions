@@ -12,13 +12,19 @@
       "update_url": "https://github.com/RockerBot/Extensions/tidBits_updates.json"
     }
   },
+
   "icons": { "48": "icons/burn.png" },
+
   "permissions": [
     "activeTab",
     "storage",
     "sessions",
-    "tabs"
+    "tabs",
+    "clipboardWrite",
+    "webNavigation",
+    "https://www.pesuacademy.com/Academy/s/studentProfilePESU"
   ],
+
   "content_scripts": [
     {
       "matches": [ "*://*.youtube.com/shorts/*" ],
@@ -31,19 +37,34 @@
     },
     {
       "matches": [ "https://www.pesuacademy.com/Academy/" ],
-      "js": [ "scripts/pesuLogin.js" ]
+      "js": [ "scripts/pesuLogin.js" ],
+      "all_frames": true
+    },
+    {
+      "matches": [ "https://www.pesuacademy.com/Academy/s/studentProfilePESU" ],
+      "js": [ "scripts/pesu.js" ],
+      "css":[ "scripts/pesu.css" ]
     },
     {
       "matches": ["*://*/*"],
       "js": ["scripts/portal.js"]
     }
   ],
+
   "browser_action": {
     "default_icon": "icons/burn.png",
     "default_title": "tidBits",
     "default_popup": "popup/tidBits.html"
   },
+
   "background": {
-    "scripts": [ "background.js" ]
+    "scripts": [ "background.js" ],
+    "persistent": true
+  },
+
+  "web_accessible_resources": [ "icons/" ],
+  
+  "options_ui": {
+    "page": "option/tidBits.html"
   }
 }

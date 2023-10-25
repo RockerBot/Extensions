@@ -8,6 +8,7 @@ button{
     border-radius:10px;
     cursor:pointer;
     overflow: hidden;
+    grid-column: 1;
 }
 @keyframes rot-animate {
     0%{ rotate: 0deg; }
@@ -40,8 +41,28 @@ img{
 }
 body{ background:none; }
 
-#popup-content{ background:none; width: 220px;}
+#popup-content{ background:none; display:flex; flex-direction:column;}
 
 .clr-blu{background-color: #027bc6;}
 .clr-gree{background-color: #10a37f;}
 .clr-gray{background-color: #f2f2f2;}
+
+.opt{
+    display: flex;
+    flex-direction: row;
+    column-gap: 0px;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid black;
+    border-radius:13px;
+}
+code{
+    margin-left: 10px;
+    border-radius: 3px;
+    font-family: courier, monospace;
+    height: fit-content;
+    font-weight: bold;
+    font-size:14px;
+}
+span.warn{
+    color: red;
+}
