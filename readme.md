@@ -12,7 +12,7 @@ to check web-ext version:
 
 
 ## tidBits
-random odd-bods
+    random odd-bods
     - autosigin to the wifi captive portal to
     - making youtube shorts inconvienient to use
     - Restore hitory for when multiple browser windows are open
