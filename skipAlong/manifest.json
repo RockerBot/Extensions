@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "skipAlong",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": "RockerBot",
   
   "description": "Skips Youtube Ads.",
@@ -31,6 +31,10 @@
 
   "background": {
     "scripts": ["background.js"]
+  },
+
+  "options_ui": {
+    "page": "option/skipAlong.html"
   }
 }
   
