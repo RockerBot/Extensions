@@ -1,0 +1,55 @@
+/* .p7sI2:not(.PQJSne) .sFlh5c.iPVvYb{
+    background-image: none;
+} */
+.p7sI2:not(.PQJSne) .sFlh5c:not(.iPVvYb){
+    visibility: hidden;
+}
+.p7sI2:not(.PQJSne) .sFlh5c.iPVvYb:not(.tidBits_bg)
+{
+    animation: tidBits_bg_rainbow 20s linear infinite;
+    background-image: none;
+    visibility: visible;
+}
+@keyframes tidBits_bg_rainbow{
+    0%  { background-color: rgba(255,0,0,1   ); }
+    10% { background-color: rgba(255,154,0,1 ); }
+    20% { background-color: rgba(208,222,33,1); }
+    30% { background-color: rgba(79,220,74,1 ); }
+    40% { background-color: rgba(63,218,216,1); }
+    50% { background-color: rgba(47,201,226,1); }
+    60% { background-color: rgba(28,127,238,1); }
+    70% { background-color: rgba(95,21,242,1 ); }
+    80% { background-color: rgba(186,12,248,1); }
+    90% { background-color: rgba(251,7,217,1 ); }
+    100%{ background-color: rgba(255,0,0,1   ); }
+}
+#tidbits_bg_btn{
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    /* top: -10px; */
+    padding: 0%;
+    background:none;
+    overflow: hidden;
+    border-width: 0%;
+    /* border: none; */
+    border-radius: 100px;
+    border-style: none;
+    z-index: 10;
+}
+#tidbits_bg_btn img{
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+    height: 100%;
+}
+#tidbits_clr{
+    cursor: pointer;
+}
+#tidbits_clr:hover{
+    rotate: 23040deg;
+    transition-duration: 15s;
+    transition-timing-function: linear;
+}

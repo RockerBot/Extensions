@@ -1,0 +1,18 @@
+.SEEN{
+    position: absolute;
+    overflow: hidden;
+    top: 0%;
+    bottom: 0%;
+    right: 0%;
+    left: 0%;
+    opacity: 0.5;
+}
+.tidbits_seen{
+    position: relative;
+    background:url('../icons/seen.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.tidbits_seen > a{
+    opacity: 0.2;
+}

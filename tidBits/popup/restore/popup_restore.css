@@ -11,9 +11,13 @@ div{
     height: 25px;
     width: 370px;
     background-color: chartreuse;
+    
+    white-space: nowrap;
+    cursor: pointer;
+    
     overflow-y: hidden;
     overflow-x: scroll;
-    white-space: nowrap;
+
     margin: 0px;
     margin-bottom: 5px;
 

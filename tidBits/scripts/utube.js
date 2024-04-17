@@ -2,20 +2,34 @@ aabb = {}
 const utube_observer = new MutationObserver(function(mutations) {
     browser.storage.local.get(['tidBits_shorts_enabled'], (result) => {
         if(!result.tidBits_shorts_enabled)return;        
-        handleSelection('[title="Shorts"]')
-        handleSelection('[is-shorts=""]')
-        handleTagName("ytd-reel-shelf-renderer")
+        dropSelection('[title="Shorts"]');
+        dropSelection('[is-shorts=""]');
+        dropTagName("ytd-reel-shelf-renderer");
+        handleSeenVids();
     });
 });  
 utube_observer.observe(document.body, { childList: true, subtree: true, attributes: true });
 
 
-function handleSelection(selection){
+function dropSelection(selection){
     el = document.querySelector(selection)
     if(el !==null)el.remove();
 }
-function handleTagName(tagname){
+function dropTagName(tagname){
     for (let elem of document.getElementsByTagName(tagname)) elem.remove();
+}
+function handleSeenVids(){
+    for( elem of document.getElementsByTagName("ytd-thumbnail") ){
+        if (elem.className.includes("tidbits_seen")) continue;
+
+        var line = elem.getElementsByTagName("ytd-thumbnail-overlay-resume-playback-renderer");
+        if (!line[0]) continue;
+        
+        if(line[0].children[0].style.width.replace("%","")-0x0 > 90){
+            console.log(line[0].children[0].style.width, elem);
+            elem.className +=" tidbits_seen ";
+        }
+    }
 }
 // for (elem of document.getElementsByTagName("video")){
 //     aabb[elem.src] = 1;

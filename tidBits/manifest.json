@@ -20,6 +20,7 @@
     "storage",
     "sessions",
     "tabs",
+    "contextMenus",
     "clipboardWrite",
     "webNavigation",
     "https://www.pesuacademy.com/Academy/s/studentProfilePESU"
@@ -33,7 +34,8 @@
     },
     {
       "matches": [ "*://*.youtube.com/*" ],
-      "js": [ "scripts/utube.js" ]
+      "js": [ "scripts/utube.js" ],
+      "css": [ "scripts/utube.css" ]
     },
     {
       "matches": [ "https://www.pesuacademy.com/Academy/" ],
@@ -47,7 +49,12 @@
     },
     {
       "matches": ["*://*/*"],
-      "js": ["scripts/portal.js"]
+      "js": ["scripts/portal.js", "scripts/squeak.js"]
+    },
+    {
+      "matches": [ "https://www.google.com/search*" ],
+      "js": ["scripts/invisbg.js"],
+      "css": ["scripts/invisbg.css"]
     }
   ],
 
@@ -61,6 +68,8 @@
     "scripts": [ "background.js" ],
     "persistent": true
   },
+
+  "omnibox": { "keyword" : "debug" },
 
   "web_accessible_resources": [ "icons/" ],
   

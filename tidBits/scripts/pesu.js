@@ -1,4 +1,3 @@
-// alert("HI");
 subj_uuid = 0
 function registerElem(SRC, ALT, i){
     newElem = document.createElement("div");
@@ -43,15 +42,16 @@ function handleSeqSlides(){
     const unit_list = document.getElementById("courselistunit");
     if(unit_list){
         for (li of unit_list.children){
-            child = li.children[0]
+            child = li.children[0];
             if(child.children.length > 0)continue;
             wrapElem = document.createElement("div");
+            wrapElem.appendChild(registerElem("icons/av.png", "AV", 1));
             wrapElem.appendChild(registerElem("icons/ppt.png", "PPT", 3));
             wrapElem.appendChild(registerElem("icons/note.png", "NOTE", 4));
             wrapElem.appendChild(registerElem("icons/mcq.png", "MCQ", 8));
             wrapElem.className ="tidbits_btn";
             child.appendChild(wrapElem);
-            child.className +="tidbits_unit"
+            child.className +="tidbits_unit";
         }
     }
 }
