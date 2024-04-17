@@ -35,7 +35,7 @@ document.addEventListener("contextmenu", e => {
         case "chatty":return;break;
         case "portal":
             obj.width = 220;
-            obj.height = 90;
+            obj.height = 180;
             obj.url = "portal/popup_portal.html"
             break;
         default: console.log(e, "ERR");return;

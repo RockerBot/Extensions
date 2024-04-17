@@ -1,35 +1,52 @@
 body{
-    position: fixed;
     background-color: #027bc6;
     width: 200px;
-    height: 100px;
+    height: 420px;
+}
+*{
+    position: fixed;
 }
 input[name="username"]{
-    position: fixed;
     left:80px;
     top:10px;
 }
 input[name="password"]{
-    position: fixed;
     left:80px;
     top:30px;
 }
+input[name="url"]{
+    left:80px;
+    top:80px;
+}
 label[for="username"]{
-    position: fixed;
     left:10px;
     top:10px;
     /* background-color: blueviolet; */
 }
 label[for="password"]{
-    position: fixed;
     left:10px;
     top:30px;
     /* background-color: rgb(43, 137, 226); */
 }
+label[for="url"]{
+    left:10px;
+    top:80px;
+}
 label{width:70px;}
 input{width:100px;}
+div{
+    background: #0d64ab;
+    width:190px;
+    height:60px;
+    top:75px;
+    left:5px;
+    border-radius: 10px;
+}
 .sve{
-    position: fixed;
     left:10px;
-    top:60px;
+    top:50px;
+}
+.url{
+    left:10px;
+    top:105px;
 }
