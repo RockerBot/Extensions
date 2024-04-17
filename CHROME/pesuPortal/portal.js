@@ -2,18 +2,22 @@ URLs = [
     "https://192.168.254.1:8090/", 
     "https://192.168.254.1:8090/httpclient.html", 
     "https://192.168.10.1:8090/", 
-    "https://192.168.10.1:8090/httpclient.html", 
+    "https://192.168.10.1:8090/httpclient.html",
+	"https://10.0.0.1:8090/",
+	"https://10.0.0.1:8090/httpclient.html",
     "http://192.168.254.1:8090/", 
     "http://192.168.254.1:8090/httpclient.html", 
     "http://192.168.10.1:8090/", 
     "http://192.168.10.1:8090/httpclient.html",
+	"http://10.0.0.1:8090/",
+	"http://10.0.0.1:8090/httpclient.html",
 ]
 function display(SRN){
     document.getElementById('signin-caption').innerText = "Signed-In as " + SRN;
     document.getElementById('credentials').style.display = "none"
     document.getElementById('loginbutton').style.display = "none"
 }
-function login(SRN, pword){
+function sendCredentials(SRN, pword){
 	var query=`mode=191&username=${SRN}&password=${pword}&a=${(new Date()).getTime()}&producttype=0`;
 	var obj= new XMLHttpRequest();
 	var message;
@@ -48,16 +52,22 @@ function login(SRN, pword){
 	}catch(e){ console.log(e) }
 	
 }
-
-if( URLs.includes(window.location.href) ){
-    setTimeout(()=>{
+function login(){
+	setTimeout(()=>{
         const elem = document.getElementById("loginbutton");
         if (elem && elem.innerHTML.includes("Login")) {
             console.log("yes", elem)
             chrome.storage.local.get(['tidBits_stacks'], (res) => {
-                login(res.tidBits_stacks.u, res.tidBits_stacks.p);
+                sendCredentials(res.tidBits_stacks.u, res.tidBits_stacks.p);
             });
-            
         }
     },1_000);
+}
+if( URLs.includes(window.location.href) ){
+    login();
+}else{
+	browser.storage.local.get(['tidBits_portal_urls'], (result) => {
+		if(!result.tidBits_portal_urls.includes(window.location.href))return;
+		login();
+	});
 }
