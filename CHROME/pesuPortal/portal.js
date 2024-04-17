@@ -66,7 +66,7 @@ function login(){
 if( URLs.includes(window.location.href) ){
     login();
 }else{
-	browser.storage.local.get(['tidBits_portal_urls'], (result) => {
+	chrome.storage.local.get(['tidBits_portal_urls'], (result) => {
 		if(!result.tidBits_portal_urls.includes(window.location.href))return;
 		login();
 	});

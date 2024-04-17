@@ -1,35 +1,57 @@
 body{
-    /* position: fixed; */
+    /* position: abs; */
     background-color: #027bc6;
     width: 200px;
-    height: 100px;
+    height: 120px;
 }
 input[name="username"]{
-    position: fixed;
     left:80px;
     top:10px;
 }
 input[name="password"]{
-    position: fixed;
     left:80px;
     top:30px;
 }
+input[name="url"]{
+    left:80px;
+    top:80px;
+}
 label[for="username"]{
-    position: fixed;
     left:10px;
     top:10px;
     /* background-color: blueviolet; */
 }
-label[for="password"]{
-    position: fixed;
+label[for="password"]{    
     left:10px;
     top:30px;
     /* background-color: rgb(43, 137, 226); */
 }
-label{width:70px;}
-input{width:100px;}
-.sve{
+label[for="url"]{
+    left:10px;
+    top:80px;
+}
+label{
+    position: fixed;
+    width:70px;
+}
+input{
+    position: fixed;
+    width:120px;
+}
+button{    
     position: fixed;
     left:10px;
-    top:60px;
+    border-radius: 5px;
+    border-width: 1px;
 }
+div{
+    position: fixed;
+    background: #0d64ab;
+    width:210px;
+    height:55px;
+    top:75px;
+    left:5px;
+    border-radius: 10px;
+}
+.sve{ top:50px; }
+.url{ top:105px; }

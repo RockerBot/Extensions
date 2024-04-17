@@ -3,9 +3,7 @@ body{
     width: 200px;
     height: 420px;
 }
-*{
-    position: fixed;
-}
+*{ position: fixed; }
 input[name="username"]{
     left:80px;
     top:10px;
