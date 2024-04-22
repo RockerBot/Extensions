@@ -13,7 +13,7 @@ URLs = [
 	"http://10.0.0.1:8090/httpclient.html",
 ]
 function display(SRN){
-    document.getElementById('signin-caption').innerText = "Signed-In as " + SRN;
+    document.getElementById('signin-caption').innerText = "You are Signed-In as " + SRN;
     document.getElementById('credentials').style.display = "none"
     document.getElementById('loginbutton').style.display = "none"
 }
@@ -37,9 +37,9 @@ function sendCredentials(SRN, pword){
 				console.log("Maybe")
 				elems = doc.getElementsByTagName("state")
 				if (elems && elems.length)
-				console.log(elems[0].firstChild.nodeValue)
-			else
-			console.log("somthing wne wrong, looks like u did not get a 'state'")
+					console.log(elems[0].firstChild.nodeValue)
+				else
+					console.log("somthing wne wrong, looks like u did not get a 'state'")
 		break
 		default:
 			console.log("Something went wrong, looks like u did not get a 'status'")
@@ -52,7 +52,7 @@ function sendCredentials(SRN, pword){
 	}catch(e){ console.log(e) }
 	
 }
-function login(){
+function reConnect(){
 	setTimeout(()=>{
         const elem = document.getElementById("loginbutton");
         if (elem && elem.innerHTML.includes("Login")) {
@@ -63,6 +63,16 @@ function login(){
         }
     },1_000);
 }
+function login() {
+	reConnect(); //initial login
+	setInterval(()=>{ //checks every 3 min
+		var img = new Image();
+		img.onerror = reConnect; //relogs
+		img.src = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png?" + Date.now();
+	},3*60*1000);
+}
+
+
 if( URLs.includes(window.location.href) ){
     login();
 }else{
