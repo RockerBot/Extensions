@@ -1,0 +1,32 @@
+name: building the extension
+on:
+  push:
+    paths:
+      - 'Extensions/tidBits/**'
+      - 'Extensions/skipAlong/**'
+jobs:
+  run_command:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install web-ext
+        run: npm install -g web-ext
+        
+      - name: Run web-ext in tidBits directory
+        if: ${{ contains(github.event.modified_files, 'Extensions/tidBits/') }}
+        run: |
+          cd Extensions/tidBits
+          web-ext build
+
+      - name: Run web-ext in skipAlong directory
+        if: ${{ contains(github.event.modified_files, 'Extensions/skipAlong/') }}
+        run: |
+          cd Extensions/skipAlong
+          web-ext build
