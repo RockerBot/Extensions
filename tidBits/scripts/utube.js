@@ -6,6 +6,7 @@ const utube_observer = new MutationObserver(function(mutations) {
         dropSelection('[is-shorts=""]');
         dropTagName("ytd-reel-shelf-renderer");
         handleSeenVids();
+        searchSubBar();
     });
 });  
 utube_observer.observe(document.body, { childList: true, subtree: true, attributes: true });
@@ -31,6 +32,42 @@ function handleSeenVids(){
         }
     }
 }
+function hideAsub(sub, inputElem){
+    sub.classList.remove("tidbits_hide");
+    if(!sub
+        .getElementsByTagName('yt-formatted-string')[0]
+        .innerText
+        .toLowerCase()
+        .includes(inputElem.value.toLowerCase()
+    )){
+        sub.className += " tidbits_hide ";
+    }
+}
+function searchSubBar(){
+    var srch = document.getElementById('guide-section-title');
+    if(!srch || !srch.parentElement)
+        return;
+    var elem = document.getElementById('expander-item');
+    if(elem)
+        elem.click();
+
+
+    srch.parentElement.removeChild(srch.parentElement.firstChild);
+    var inputElem = document.createElement("input");
+    inputElem.setAttribute("placeholder", "Subscriptions");
+    inputElem.addEventListener("input", ()=>{
+        if(inputElem.value=="")
+            return;
+        
+        for (const sub of sublist) { hideAsub(sub, inputElem); }
+        for (const sub of qsublist) { hideAsub(sub, inputElem); }
+    });
+    srch.parentElement.appendChild(inputElem);
+    var expndedList = document.getElementById('expanded');
+    var sublist = expndedList.getElementsByTagName('ytd-guide-entry-renderer');
+    var qsublist = expndedList.parentElement.parentElement.getElementsByTagName('ytd-guide-entry-renderer');
+}
+
 // for (elem of document.getElementsByTagName("video")){
 //     aabb[elem.src] = 1;
 // }

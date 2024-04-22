@@ -16,3 +16,6 @@
 .tidbits_seen > a{
     opacity: 0.2;
 }
+.tidbits_hide{
+    display: none;
+}
