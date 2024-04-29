@@ -41,33 +41,61 @@ function hideAsub(sub, inputElem){
         .includes(inputElem.value.toLowerCase()
     )){
         sub.className += " tidbits_hide ";
+        return 0;
+    }
+    return 1;
+}
+function searchSubBar(){    
+    const sideTabs = document.getElementsByTagName('ytd-guide-section-renderer');
+    for (const sideTab of sideTabs) {
+        // var srch = sideTab.getElementById('guide-section-title');//:( i wish
+        var srch = sideTab.children[0].children[0];
+        if(!srch || !srch.parentElement) continue;
+        if(!srch.innerText.includes('Subscriptions')) continue;
+        searchSubBar = () => {} //* makes the function single use
+        
+        var elem = document.getElementById('expander-item');
+        if(elem) elem.click();
+
+        var inputElem = document.createElement("input");
+        var inputLabelElem = document.createElement("label");
+
+        inputElem.setAttribute("placeholder", "Subscriptions");
+        inputElem.setAttribute("name", "Subscriptions");
+        inputLabelElem.setAttribute("for", "Subscriptions")
+        // var inputCounter = 0;
+        inputElem.addEventListener("input", ()=>{
+            // inputCounter++;
+            // let myinputCounter = inputCounter;
+            // console.log("reg q", inputCounter, myinputCounter, inputElem.value)
+            // if(inputElem.value=="")
+            //     return;
+            nSubs = 0;
+            for (const sub of sublist) {
+                // if(myinputCounter != inputCounter) {console.log("re", inputCounter, myinputCounter, inputElem.value);return;}
+                nSubs += hideAsub(sub, inputElem);
+            }
+            inputLabelElem.innerText = `${nSubs}`
+        });
+
+        var srchParent = srch.parentElement;
+        for (const child of srchParent.children) {
+            srchParent.removeChild(child);
+        }
+        srchParent.appendChild(inputElem);
+        srchParent.appendChild(inputLabelElem);
+
+        var expndedList = document.getElementById('expanded');
+        var sublist = expndedList.parentElement.parentElement.getElementsByTagName('ytd-guide-entry-renderer');
+        var nSubs = Object.keys(sublist).length - 2
+
+        inputLabelElem.innerText = `${nSubs}`
+        console.log("got sublist! of ", nSubs, "Subscriptions")
+        return;
     }
 }
-function searchSubBar(){
-    var srch = document.getElementById('guide-section-title');
-    if(!srch || !srch.parentElement)
-        return;
-    var elem = document.getElementById('expander-item');
-    if(elem)
-        elem.click();
 
-
-    srch.parentElement.removeChild(srch.parentElement.firstChild);
-    var inputElem = document.createElement("input");
-    inputElem.setAttribute("placeholder", "Subscriptions");
-    inputElem.addEventListener("input", ()=>{
-        if(inputElem.value=="")
-            return;
-        
-        for (const sub of sublist) { hideAsub(sub, inputElem); }
-        for (const sub of qsublist) { hideAsub(sub, inputElem); }
-    });
-    srch.parentElement.appendChild(inputElem);
-    var expndedList = document.getElementById('expanded');
-    var sublist = expndedList.getElementsByTagName('ytd-guide-entry-renderer');
-    var qsublist = expndedList.parentElement.parentElement.getElementsByTagName('ytd-guide-entry-renderer');
-}
-
+//guide-section-title
 // for (elem of document.getElementsByTagName("video")){
 //     aabb[elem.src] = 1;
 // }
