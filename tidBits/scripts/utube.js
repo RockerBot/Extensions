@@ -32,18 +32,26 @@ function handleSeenVids(){
         }
     }
 }
-function hideAsub(sub, inputElem){
+function hideAsub(sub, pattern){
     sub.classList.remove("tidbits_hide");
-    if(!sub
-        .getElementsByTagName('yt-formatted-string')[0]
-        .innerText
-        .toLowerCase()
-        .includes(inputElem.value.toLowerCase()
-    )){
-        sub.className += " tidbits_hide ";
-        return 0;
+    const subNames = sub.getElementsByTagName('yt-formatted-string');
+    if(!subNames.length) return 0;
+    if(!subNames[0].innerText) return 0;
+    if(!subNames[0].innerText.length) return 0;
+    var cond = true;
+    for (const ptrn of pattern.split(" ")) {
+        cond = (
+            subNames[0]
+            .innerText
+            .toLowerCase()
+            .includes(ptrn)
+            && 
+            cond
+        );
     }
-    return 1;
+    if(cond) return 1;
+    sub.className += " tidbits_hide ";
+    return 0;
 }
 function searchSubBar(){    
     const sideTabs = document.getElementsByTagName('ytd-guide-section-renderer');
@@ -63,19 +71,30 @@ function searchSubBar(){
         inputElem.setAttribute("placeholder", "Subscriptions");
         inputElem.setAttribute("name", "Subscriptions");
         inputLabelElem.setAttribute("for", "Subscriptions")
-        // var inputCounter = 0;
+        
+        var t1 = null;
         inputElem.addEventListener("input", ()=>{
-            // inputCounter++;
-            // let myinputCounter = inputCounter;
-            // console.log("reg q", inputCounter, myinputCounter, inputElem.value)
-            // if(inputElem.value=="")
-            //     return;
-            nSubs = 0;
-            for (const sub of sublist) {
-                // if(myinputCounter != inputCounter) {console.log("re", inputCounter, myinputCounter, inputElem.value);return;}
-                nSubs += hideAsub(sub, inputElem);
+            let nSubs = 0;
+            if(t1)clearTimeout(t1);
+            var index = 0;
+            function handleNextSub() {
+                for(let i=0;i<30;i++){
+                    const sub = sublist[index];
+                    nSubs += hideAsub(sub, inputElem.value.toLowerCase());
+                    if (++index >= sublist.length) {
+                        inputLabelElem.innerText = `${nSubs}`;
+                        return;
+                    }
+                }
+                
+                if (++index < sublist.length){
+                    index--;
+                    t1 = setTimeout(handleNextSub);
+                }else{
+                    inputLabelElem.innerText = `${nSubs}`;
+                }
             }
-            inputLabelElem.innerText = `${nSubs}`
+            handleNextSub();
         });
 
         var srchParent = srch.parentElement;
@@ -87,10 +106,9 @@ function searchSubBar(){
 
         var expndedList = document.getElementById('expanded');
         var sublist = expndedList.parentElement.parentElement.getElementsByTagName('ytd-guide-entry-renderer');
-        var nSubs = Object.keys(sublist).length - 2
+        sublist = Object.values(sublist)
 
-        inputLabelElem.innerText = `${nSubs}`
-        console.log("got sublist! of ", nSubs, "Subscriptions")
+        inputLabelElem.innerText = `${sublist.length-2}`
         return;
     }
 }

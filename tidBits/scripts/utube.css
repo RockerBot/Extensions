@@ -41,3 +41,10 @@ label[for="Subscriptions"]{
     pointer-events: none;
     user-select: none;
 }
+
+ytd-guide-entry-renderer:nth-of-type(5n){
+    background-color: rgb(230, 230, 230);
+}
+ytd-guide-entry-renderer:nth-of-type(10n){
+    background-color: rgb(200, 200, 200);
+}
