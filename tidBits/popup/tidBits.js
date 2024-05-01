@@ -33,6 +33,8 @@ document.addEventListener("contextmenu", e => {
             break;
         case "cs2":return;break;
         case "chatty":return;break;
+        case "disc":return;break;
+        case "debug":return;break;
         case "portal":
             obj.width = 220;
             obj.height = 180;
@@ -69,7 +71,7 @@ function handleOtherClickable(targ){
     }else if(targ.id === 'cs2'){
         browser.tabs.query({ url:"https://www.youtube.com/@CaptainSparklez2/videos" })
         .then(tabList=>{
-            if (tabList.length >0) browser.tabs.update( tabList[0].id,{active: true})
+            if (tabList.length > 0) browser.tabs.update( tabList[0].id,{active: true})
             else browser.tabs.create({
                 active: true,
                 url:"https://www.youtube.com/@CaptainSparklez2/videos",
@@ -78,10 +80,19 @@ function handleOtherClickable(targ){
     }else if(targ.id === 'chatty'){
         browser.tabs.query({ url:"https://chat.openai.com/" })
         .then(tabList=>{
-            if (tabList.length >0) browser.tabs.update( tabList[0].id,{active: true})
+            if (tabList.length > 0) browser.tabs.update( tabList[0].id,{active: true})
             else browser.tabs.create({
                 active: true,
                 url:"https://chat.openai.com/",
+            });
+        });
+    }else if(targ.id === 'disc'){
+        browser.tabs.query({ url:"https://discord.com/channels/*" })
+        .then(tabList=>{
+            if (tabList.length > 0) browser.tabs.update( tabList[0].id,{active: true})
+            else browser.tabs.create({
+                active: true,
+                url:"https://discord.com/channels/@me",
             });
         });
     }else if(targ.id === 'debug'){
