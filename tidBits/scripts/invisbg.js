@@ -22,7 +22,7 @@ function toggleBg(){
 function setup(){
     const elem = document.getElementById("Sva75c");
     if(!elem)return;
-    const subelem = elem.getElementsByClassName("tvh9oe BIB1wf hVa2Fd")[0];
+    const subelem = elem.getElementsByClassName("tvh9oe BIB1wf")[0];
     if(!subelem)return;
     const buttons = subelem.getElementsByTagName("button");
     if(buttons.length<5)return;
