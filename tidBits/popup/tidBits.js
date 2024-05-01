@@ -1,4 +1,4 @@
-const IDs_toglable = ['shorts', 'pesu', 'Qstk', 'portal']
+const IDs_toglable = ['shorts', 'pesu', 'qstk', 'portal']
 //IDS are shorts pesu restore cs2
 function id2key(id){ return "tidBits_" + id + "_enabled"; }
 function handleStartup(res, id){
