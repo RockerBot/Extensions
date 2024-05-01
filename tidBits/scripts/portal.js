@@ -1,13 +1,3 @@
-URLs = [
-    "https://192.168.254.1:8090/", 
-    "https://192.168.254.1:8090/httpclient.html", 
-    "https://192.168.10.1:8090/", 
-    "https://192.168.10.1:8090/httpclient.html", 
-    "http://192.168.254.1:8090/", 
-    "http://192.168.254.1:8090/httpclient.html", 
-    "http://192.168.10.1:8090/", 
-    "http://192.168.10.1:8090/httpclient.html",
-]
 function login(){
     const elem = document.getElementById("loginbutton");
     if (elem && elem.innerHTML.includes("Login")) {
@@ -19,17 +9,10 @@ function login(){
     }
 }
 
-if( URLs.includes(window.location.href) ){
-    browser.storage.local.get(['tidBits_portal_enabled'], (result) => {
-        if(!result.tidBits_portal_enabled)return;
+browser.storage.local.get(['tidBits_portal_enabled'], (result) => {
+    if(!result.tidBits_portal_enabled)return;
+    browser.storage.local.get(['tidBits_portal_urls'], (result) => {
+        if(!result.tidBits_portal_urls.includes(window.location.href))return;
         login()
     });
-}else{
-    browser.storage.local.get(['tidBits_portal_enabled'], (result) => {
-        if(!result.tidBits_portal_enabled)return;
-        browser.storage.local.get(['tidBits_portal_urls'], (result) => {
-            if(!result.tidBits_portal_urls.includes(window.location.href))return;
-            login()
-        });
-    });
-}
+});
