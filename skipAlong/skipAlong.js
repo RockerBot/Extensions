@@ -1,10 +1,8 @@
 const SKIPABLES = ["ytp-ad-skip-button ytp-button", "ytp-ad-skip-button-modern ytp-button"];
 var stalled = false;
-
-const observer = new MutationObserver(function(mutations) {
-    browser.storage.local.get(['skipAlong_enabled'], (result) => {
-        if(!result.skipAlong_enabled) return;
-        
+var percentage = 80;
+var airtime = 2;
+const observer = new MutationObserver(function(mutations) {        
         handleID("player-ads");
         handleID("masthead-ad");
         handleTagName("ytd-ad-slot-renderer");
@@ -12,35 +10,31 @@ const observer = new MutationObserver(function(mutations) {
             const mutated_class = mutation.target.className;
             if ( (typeof(mutated_class) != "string") || !mutated_class.includes("ad") ) continue;
 
-            for (const skip_class_name of SKIPABLES) {
-                const elements = document.getElementsByClassName(skip_class_name);
-                if (elements.length === 0) continue;
-                elements[0].click();
-                return;
-            }
+            browser.storage.local.get(['skipAlong_skip_enabled'], (result) => {
+                console.log(result.skipAlong_skip_enabled, "skip-----------");
+                if(!result.skipAlong_skip_enabled) return;
+                handleSkipable();
+            });
+
             if(
                 mutated_class.includes("ytp-ad-persistent-progress-bar") && 
                 !mutated_class.includes("ytp-ad-persistent-progress-bar-container") &&
                 mutation.target.style &&
-                mutation.target.style.width.replace("%", "") - 0 < 80
+                mutation.target.style.width.replace("%", "") - 0 < percentage
             ){
-                for (const vid of document.getElementsByTagName("video")) {
-                    if(!vid.className.includes("video-stream") || !vid.className.includes("html5-main-video")) continue;
-                    if(!vid.duration) continue;
-                    if(stalled) return;
-
-                    stalled = true;
-
-                    new_play_rate = vid.duration * 0.1; // max two seconds of ad time, (1-vid.duration*0.8)/2
-                    if(new_play_rate > 1) vid.playbackRate = new_play_rate 
-                    vid.currentTime = vid.duration //* 0.8; //80% skip
-                    
-                    setTimeout(()=>stalled = false, 3000);
-                    return;
-                }
+                browser.storage.local.get(['skipAlong_unskip_enabled'], (result) => {
+                    console.log(result.skipAlong_unskip_enabled, "unskip-----------");
+                    if(!result.skipAlong_unskip_enabled) return;
+                    browser.storage.local.get(['skipAlong_skip_percent'], (res1) => {
+                        percentage = res1.skipAlong_skip_percent;
+                    });
+                    browser.storage.local.get(['skipAlong_ad_time'], (res2) => {
+                        airtime = res2.skipAlong_ad_time;
+                    });
+                    handleUnSkipable();
+                });
             }
         }
-    });
 });
 
 observer.observe(document.body, { childList: true, subtree: true, attributes: true });
@@ -52,4 +46,31 @@ function handleID(id){
 function handleTagName(tagname){
     for(elem of document.getElementsByTagName(tagname))
         elem.remove();
+}
+
+function handleSkipable(){
+    for (const skip_class_name of SKIPABLES) {
+        const elements = document.getElementsByClassName(skip_class_name);
+        if (elements.length === 0) continue;
+        console.log("SKIP CONFIRM")
+        elements[0].click();
+        return;
+    }
+}
+
+function handleUnSkipable(){
+    for (const vid of document.getElementsByTagName("video")) {
+        if(!vid.className.includes("video-stream") || !vid.className.includes("html5-main-video")) continue;
+        if(!vid.duration) continue;
+        if(stalled) return;
+
+        stalled = true;
+        
+        new_play_rate = vid.duration * (1-percentage/100)/airtime; // max two seconds of ad time,vid.duration * (1-0.8)/2 =  0.1
+        if(new_play_rate > 1) vid.playbackRate = new_play_rate 
+        vid.currentTime = vid.duration * percentage/100; //* 0.8; //80% skip
+        
+        setTimeout(()=>stalled = false, 3000);
+        return;
+    }
 }

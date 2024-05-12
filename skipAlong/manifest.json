@@ -26,7 +26,8 @@
   
   "browser_action": {
     "default_icon": "icons/speedButton.png",
-    "default_title": "skipAlong"
+    "default_title": "skipAlong",
+    "default_popup": "popup/popup.html"
   },
 
   "background": {
