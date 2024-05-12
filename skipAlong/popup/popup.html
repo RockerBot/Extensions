@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+    <div id="popup-content">
+        <button id="skip" class="Clickable ">
+            SKIP-able
+        </button>
+        <button id="unskip" class="Clickable ">
+            UNSKIP-able
+        </button>
+    </div>
+
+    <div id="container" class="hide">
+        <label for="airTime" class="r1 c1"> Max Ad airtime: </label>
+        <input type="number" 
+            id="airTime" name="airTime" class="r1 c2"
+            min="1" max="10" placeholder="2">
+
+        <label for="jump" class="r2 c1" id="jmpLbl"> FastFoward: </label>
+        <input type="range" 
+            id="jump" name="jump" class="r2 c2"
+            min="1" max="100" value="50">
+
+        <div class="shade"></div>
+    </div>
+
+    <script src="popup.js"> </script>
+</body>
+</html>
