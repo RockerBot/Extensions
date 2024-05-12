@@ -1,0 +1,77 @@
+#popup-content{
+    display: grid;
+    gap: 5px;
+    height: max-content;
+}
+#container{
+    display: grid;
+    margin-top: 10px;
+    position: relative;
+}
+
+label{
+    margin-right: 10px;
+}
+input {
+    margin: 0%;
+    padding: 0%;
+}
+input[type="number"]{
+    width: 35px;
+}
+input[type="range"]{
+    width: 150px;
+}
+
+button{
+    position: relative;
+    min-width: fit-content;
+    flex: 1;
+
+    padding: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    font-size: large;
+    margin: 0px;
+    background-color: #ff0000;
+    
+    border: 2px solid black;
+    border-radius:5px;
+    
+    cursor: pointer;
+    overflow: hidden;
+}
+button.disabled{
+    background-color: #000000;
+    color: #aaaaaa;
+}
+
+button:hover{
+    color: #333333;
+}
+button.disabled:hover{
+    color: #ff0000;
+}
+
+.r1{ grid-row: 1; }
+.r2{ grid-row: 2; }
+.c1{ grid-column: 1; }
+.c2{ grid-column: 2; }
+.c3{ grid-column: 3; }
+
+.hide .shade{
+    opacity: 0.7;
+    display: block;
+}
+.shade{
+    position: absolute;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    opacity: 0;
+    display: none;
+    background-color: #919191;
+    left: -5px;
+    top: -5px;
+    border-radius: 10px;
+}
