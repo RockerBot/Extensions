@@ -22,7 +22,6 @@ const observer = new MutationObserver(function(mutations) {
                 mutation.target.style.width.replace("%", "") - 0 < percentage
             ){
                 browser.storage.local.get(['skipAlong_unskip_enabled'], (result) => {
-                    console.log(result.skipAlong_unskip_enabled, "unskip-----------");
                     if(!result.skipAlong_unskip_enabled) return;
                     browser.storage.local.get(['skipAlong_skip_percent'], (res1) => {
                         percentage = res1.skipAlong_skip_percent;

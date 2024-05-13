@@ -41,14 +41,14 @@ var label = document.getElementById("jmpLbl");
 
 browser.storage.local.get(['skipAlong_skip_percent'], (result) => {
     slider.value = result.skipAlong_skip_percent;
-    label.innerHTML = "FastFoward: " + slider.value + "%";
+    label.innerText = "FastFoward: " + slider.value + "%";
 });
 browser.storage.local.get(['skipAlong_ad_time'], (result) => {
     airTime.value = result.skipAlong_ad_time;
 });
 
 slider.oninput = function() {
-    label.innerHTML = "FastFoward: " + slider.value + "%";
+    label.innerText = "FastFoward: " + slider.value + "%";
     browser.storage.local.set({
         skipAlong_skip_percent: slider.value
     });
