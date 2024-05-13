@@ -1,8 +1,8 @@
-const SKIPABLES = ["ytp-ad-skip-button ytp-button", "ytp-ad-skip-button-modern ytp-button"];
+const SKIPABLES = ["ytp-ad-skip-button ytp-button", "ytp-ad-skip-button-modern ytp-button", "ytp-skip-ad-button"];
 var stalled = false;
 var percentage = 80;
 var airtime = 2;
-const observer = new MutationObserver(function(mutations) {        
+const observer = new MutationObserver(function(mutations) {
         handleID("player-ads");
         handleID("masthead-ad");
         handleTagName("ytd-ad-slot-renderer");
@@ -11,7 +11,6 @@ const observer = new MutationObserver(function(mutations) {
             if ( (typeof(mutated_class) != "string") || !mutated_class.includes("ad") ) continue;
 
             browser.storage.local.get(['skipAlong_skip_enabled'], (result) => {
-                console.log(result.skipAlong_skip_enabled, "skip-----------");
                 if(!result.skipAlong_skip_enabled) return;
                 handleSkipable();
             });
@@ -52,9 +51,14 @@ function handleSkipable(){
     for (const skip_class_name of SKIPABLES) {
         const elements = document.getElementsByClassName(skip_class_name);
         if (elements.length === 0) continue;
-        console.log("SKIP CONFIRM")
         elements[0].click();
         return;
+    }
+    for (const btn of document.getElementsByTagName('button')){
+        if (btn.innerText == 'Skip' && (btn.className + " " + btn.id).includes('ad')){
+            btn.click();
+            return;
+        }
     }
 }
 
