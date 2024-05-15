@@ -1,9 +1,8 @@
-const IDs_toglable = ['shorts', 'pesu', 'qstk', 'portal']
+const IDs_toglable = ['shorts', 'pesu', 'qstk', 'portal'];
 //IDS are shorts pesu restore cs2
 function id2key(id){ return "tidBits_" + id + "_enabled"; }
 function handleStartup(res, id){
     document.getElementById(id).className += (!!res[id2key(id)])?"":"disabled";
-    console.log(res,document.getElementById(id))
 }
 
 for(let id of IDs_toglable) {
@@ -64,7 +63,6 @@ function handleOtherClickable(targ){
             browser.storage.local.set({ tidBits_tabs: undefined})
             for (tabId in result.tidBits_tabs){
                 tabUrl = result.tidBits_tabs[tabId]
-                // console.log("tabs  -URL", tabUrl);
                 browser.tabs.create({ url:tabUrl }).catch(e=>console.log('ErR',e))
             }
         });
@@ -78,12 +76,12 @@ function handleOtherClickable(targ){
             });
         });
     }else if(targ.id === 'chatty'){
-        browser.tabs.query({ url:"https://chat.openai.com/" })
+        browser.tabs.query({ url:"https://chatgpt.com/"})// ({ url:"https://chat.openai.com/" })
         .then(tabList=>{
             if (tabList.length > 0) browser.tabs.update( tabList[0].id,{active: true})
             else browser.tabs.create({
                 active: true,
-                url:"https://chat.openai.com/",
+                url:"https://chatgpt.com/", // "https://chat.openai.com/",
             });
         });
     }else if(targ.id === 'disc'){
@@ -98,7 +96,6 @@ function handleOtherClickable(targ){
     }else if(targ.id === 'debug'){
         browser.tabs.query({ title:"Debugging - Runtime / this-firefox" })
         .then(tabList=>{
-            // console.log(tabList)
             if (tabList.length >0) browser.tabs.update( tabList[0].id,{active: true})
             else {
                 browser.tabs.create({
