@@ -15,10 +15,10 @@ function registerElem(SRC, ALT, i){
             const tabler = document.getElementById("CourseContentId");
             if(!tabler)return;
             browser.runtime.sendMessage({
-                action: "openNewTab",
+                action: "pesuTab",
                 subj: subj_uuid,
                 unit: anchor_elem.href.split("_")[1] ,
-                topic_count: tabler.children[0].children[1].children[0].children[1].children.length,
+                topic_count: tabler.getElementsByTagName('tbody')[0].children.length,
                 type: i
             });
         },1000);
@@ -52,6 +52,26 @@ function handleSeqSlides(){
             wrapElem.className ="tidbits_btn";
             child.appendChild(wrapElem);
             child.className +="tidbits_unit";
+        }
+
+        // numbering the rows
+        const courseContnet = document.getElementById('CourseContentId');
+        if (courseContnet) {
+            const tbody = courseContnet.getElementsByTagName('tbody')[0];
+            if (!tbody) return;
+
+            let i = 1;
+            const rowCount = tbody.children.length
+            for (const row of tbody.children) {
+                const cell = row.children[0];
+                if( cell.children.length > 1 )
+                    continue;
+                const topicNdx = document.createElement('span');
+                topicNdx.innerText = `${i++}`.padStart(`${rowCount}`.length,'0');
+                topicNdx.style.paddingRight = "10px";
+                topicNdx.className = cell.firstChild.className;
+                cell.insertBefore(topicNdx, cell.firstChild);
+            }
         }
     }
 }
