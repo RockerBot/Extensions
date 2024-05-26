@@ -64,12 +64,20 @@
     "default_popup": "popup/tidBits.html"
   },
 
+  "page_action": {
+    "default_icon": {
+      "48": "icons/Qstk.png"
+    },
+    "default_popup": "popup/tidBits.html",
+    "show_matches": ["*://*/*"]
+  },
+
   "background": {
     "scripts": [ "background.js" ],
     "persistent": true
   },
 
-  "omnibox": { "keyword" : "debug" },
+  "omnibox": { "keyword" : "!" },
 
   "web_accessible_resources": [ "icons/" ],
   

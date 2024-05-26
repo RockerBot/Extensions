@@ -76,7 +76,7 @@ function handleOtherClickable(targ){
             });
         });
     }else if(targ.id === 'chatty'){
-        browser.tabs.query({ url:"https://chatgpt.com/"})// ({ url:"https://chat.openai.com/" })
+        browser.tabs.query({ url:"https://chatgpt.com/*"})// ({ url:"https://chat.openai.com/" })
         .then(tabList=>{
             if (tabList.length > 0) browser.tabs.update( tabList[0].id,{active: true})
             else browser.tabs.create({
