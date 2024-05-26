@@ -53,9 +53,9 @@ browser.runtime.onMessage.addListener(message => {
                 for (frame of frames)
                     frame.height = window.screen.height;
 
-                document.title="${ndx + 1} ";
+                document.title="${ndx + 1}";
                 if (lnks.length > 1){
-                    document.title += "(" + lnks.length + " SlideShows)"
+                    document.title += " (" + lnks.length + " SlideShows)"
                 }
             }
             
