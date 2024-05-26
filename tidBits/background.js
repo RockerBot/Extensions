@@ -113,62 +113,6 @@ browser.runtime.onMessage.addListener(message => {
             },waitTime);
         });
     }else if(message.action === ""){
-        
-    }
-});
 
-browser.omnibox.setDefaultSuggestion({
-    description: "about:debugging#/runtime/this-firefox"
-});
-
-browser.omnibox.onInputStarted.addListener(() => {
-    console.log("User has started interacting with me.");
-});
-
-browser.omnibox.onInputEntered.addListener((text, disposition) => {
-    switch(text.toLowerCase()){
-        default:;
-        case "debug":
-            navigator.clipboard
-            .writeText("about:debugging#/runtime/this-firefox")
-            .then(function(){})
-            .catch(function (error){ console.error("Error copying text to clipboard: " + error); });
-            break;
-    }
-    console.log(text,disposition);
-});
-
-browser.contextMenus.create({
-    id: "tidbits_contextmenu_speak",
-    title: "Talk to me",
-    contexts: ["selection"],
-    icons: {
-        48: "/icons/megaphone.png"
-    }
-});
-browser.contextMenus.create({
-    id: "tidbits_contextmenu_chup",
-    title: "Please stop talking",
-    contexts: ["all"],
-    icons: {
-        48: "/icons/megaphoneOutline.png"
-    }
-});
-
-browser.contextMenus.onClicked.addListener((info, tab) => {
-    if (info.menuItemId === "tidbits_contextmenu_speak") {
-        browser.tabs.sendMessage(tab.id, { 
-            action: "tidbits_speakText", 
-            selectedText: info.selectionText, 
-            menuItemId: info.menuItemId 
-        });
-        // browser.contextMenus.update(info.menuItemId, {title: "Please stop talking" });
-    }else if(info.menuItemId === "tidbits_contextmenu_chup"){
-        browser.tabs.sendMessage(tab.id, { 
-            action: "tidbits_stopSpeaking", 
-            selectedText: info.selectionText, 
-            menuItemId: info.menuItemId 
-        });
-        
     }
 });

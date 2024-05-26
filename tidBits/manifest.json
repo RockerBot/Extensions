@@ -73,7 +73,11 @@
   },
 
   "background": {
-    "scripts": [ "background.js" ],
+    "scripts": [
+      "background.js",
+      "bgContextMenus.js",
+      "bgOmnibox.js"
+    ],
     "persistent": true
   },
 
