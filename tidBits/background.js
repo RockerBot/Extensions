@@ -1,25 +1,33 @@
 const waitTime = 1000;
 
+const STORAGE_TABS = 'tidBits_tabs';
+const MESSAGE_PESUTAB = "pesuTab";
+const URL_PESUCADEMY = "https://www.pesuacademy.com/Academy/s/studentProfilePESU";
+
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tabInfo)=>{
     if (changeInfo.url === undefined)return;
-    browser.storage.local.get(['tidBits_tabs'], (res) => {
-        var obj = (res.tidBits_tabs !== undefined)?res.tidBits_tabs : {};
+    browser.storage.local.get([STORAGE_TABS], (res) => {
+        var obj = (res[STORAGE_TABS] !== undefined)?res[STORAGE_TABS] : {};
         obj[tabId] = changeInfo.url;
-        browser.storage.local.set({ tidBits_tabs: obj})
+        var setObj = {};
+        setObj[STORAGE_TABS] = obj;
+        browser.storage.local.set(setObj)
     });
 });
 browser.tabs.onRemoved.addListener((tabId, removeInfo)=>{
     if(removeInfo.isWindowClosing)return;
-    browser.storage.local.get(['tidBits_tabs'], (res) => {
-        if(!res.tidBits_tabs)return;
-        var obj = res.tidBits_tabs;
+    browser.storage.local.get([STORAGE_TABS], (res) => {
+        if(!res[STORAGE_TABS])return;
+        var obj = res[STORAGE_TABS];
         delete obj[tabId];
-        browser.storage.local.set({ tidBits_tabs: obj})
+        var setObj = {};
+        setObj[STORAGE_TABS] = obj;
+        browser.storage.local.set(setObj)
     });
 });
 
 browser.runtime.onMessage.addListener(message => {
-    if (message.action === "pesuTab") {
+    if (message.action === MESSAGE_PESUTAB) {
         const elem1 = message.subj - 0x0;
         const elem2 = message.unit - 0x0;
         const elem3 = message.type - 0x0;
@@ -27,7 +35,7 @@ browser.runtime.onMessage.addListener(message => {
         if (ndx >= message.topic_count)
             return;
 
-        browser.tabs.create({ url: "https://www.pesuacademy.com/Academy/s/studentProfilePESU", active: false }).then((tab) => {
+        browser.tabs.create({ url: URL_PESUCADEMY, active: false }).then((tab) => {
             const codeToExecute = `
             function removeFluff(){
                 for (i of document.getElementsByClassName("menu-left")) {
@@ -70,7 +78,7 @@ browser.runtime.onMessage.addListener(message => {
 
 
                 browser.runtime.sendMessage({
-                    action: "pesuTab",
+                    action: "${MESSAGE_PESUTAB}",
                     subj: "${message.subj}",
                     unit: "${message.unit}",
                     topic_count: "${message.topic_count}",

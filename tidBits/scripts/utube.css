@@ -59,6 +59,13 @@ ytd-guide-entry-renderer:nth-of-type(10n){
     border-radius: 100%;
     background-color: rgb(230, 230, 230);
 }
+.tidbits_interacted{
+    border-radius: 100%;
+    background-color: rgb(240, 240, 240);
+}
+.tidbits_interacted:hover{
+    background-color: rgb(200, 200, 200);
+}
 
 #tidbits_seenvid_btn img{
     width: 100%;

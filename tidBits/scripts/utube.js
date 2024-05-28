@@ -1,7 +1,21 @@
-aabb = {}
+const STORAGE_SHORTS = 'tidBits_shorts_enabled';
+const STORAGE_UTUBE_HIDESEEN = 'tidBits_utube_hideseen_enabled';
+
+const CLS_SEENVID = 'tidbits_seen';
+const CLS_ENABLED = 'tidbits_enable';
+const CLS_HIDE = 'tidbits_hide';
+const CLS_SPOTLIGHT = 'tidbits_spotlight';
+const CLS_INTERACTION = 'tidbits_interactions';
+const CLS_INTERACTED = 'tidbits_interacted';
+
+const ICON_SPOTLIGHT_ON = '../icons/spotlightON.png';
+const ICON_SPOTLIGHT_OFF = '../icons/spotlight.png';
+const ICON_HIDE_ON = '../icons/hide.png';
+const ICON_HIDE_OFF = '../icons/unhide.png';
+
 const utube_observer = new MutationObserver(function(mutations) {
-    browser.storage.local.get(['tidBits_shorts_enabled'], (result) => {
-        if(!result.tidBits_shorts_enabled)return;        
+    browser.storage.local.get([STORAGE_SHORTS], (result) => {
+        if(!result[STORAGE_SHORTS])return;        
         dropSelection('[title="Shorts"]');
         dropSelection('[is-shorts=""]');
         dropTagName("ytd-reel-shelf-renderer");
@@ -21,24 +35,24 @@ function dropTagName(tagname){
     for (let elem of document.getElementsByTagName(tagname)) elem.remove();
 }
 function handleSeenVids(){
-    browser.storage.local.get(['tidBits_utube_hideseen_enabled'], (result) => {
-        seenVidsHidden = result.tidBits_utube_hideseen_enabled;
+    browser.storage.local.get([STORAGE_UTUBE_HIDESEEN], (result) => {
+        seenVidsHidden = result[STORAGE_UTUBE_HIDESEEN];
         for( elem of document.getElementsByTagName("ytd-thumbnail") ){
-            if (elem.className.includes("tidbits_seen")) continue;
+            if (elem.className.includes(CLS_SEENVID)) continue;
 
             var line = elem.getElementsByTagName("ytd-thumbnail-overlay-resume-playback-renderer");
             if (!line[0]) continue;
             
             if(line[0].children[0].style.width.replace("%","")-0x0 > 90){
                 console.log(line[0].children[0].style.width, elem);
-                elem.className +=" tidbits_seen ";
-                elem.className += seenVidsHidden?" tidbits_enable ":"";
+                elem.className +=` ${CLS_SEENVID} `;
+                elem.className += seenVidsHidden ? ` ${CLS_ENABLED} ` : "";
             }
         }
     });
 }
 function hideAsub(sub, pattern){
-    sub.classList.remove("tidbits_hide");
+    sub.classList.remove(CLS_HIDE);
     const subNames = sub.getElementsByTagName('yt-formatted-string');
     if(!subNames.length) return 0;
     if(!subNames[0].innerText) return 0;
@@ -55,7 +69,7 @@ function hideAsub(sub, pattern){
         );
     }
     if(cond) return 1;
-    sub.className += " tidbits_hide ";
+    sub.className += ` ${CLS_HIDE} `;
     return 0;
 }
 function searchSubBar(){    
@@ -133,7 +147,7 @@ function addInteractions(){
     
     function createInteraction(id, imgUrl, tooltip, click){
         const interaction = document.createElement('div');
-        interaction.className = "tidbits_interactions ";
+        interaction.className = `${CLS_INTERACTION} `;
         interaction.id = id;
 
         if (imgUrl){
@@ -154,49 +168,45 @@ function addInteractions(){
     }
 
     function seenVidfunc(){
-        const senVids = document.getElementsByClassName('tidbits_seen');
+        const senVids = document.getElementsByClassName(CLS_SEENVID);
         for (const vid of senVids) {
-            vid.classList.toggle('tidbits_enable');
+            vid.classList.toggle(CLS_ENABLED);
         }
-        seenVidDiv.classList.toggle('tidbits_interactions_hidden');
+        seenVidDiv.classList.toggle(CLS_INTERACTED);
 
-        const isHidden = seenVidDiv.className.includes('tidbits_interactions_hidden');
+        const isHidden = seenVidDiv.className.includes(CLS_INTERACTED);
+        const imgUrl = isHidden ? ICON_HIDE_ON : ICON_HIDE_OFF;
 
-        let imgurl = '../icons/';
-        imgurl +=  isHidden? '':'un';
-        imgurl += 'hide.png';
-
-        const seenVidImg = seenVidDiv.getElementsByTagName('img')[0];
-        seenVidImg.src = browser.runtime.getURL(imgurl);
+        const seenVidImg = seenVidDiv.getElementsByTagName('img')[0]; 
+        seenVidImg.src = browser.runtime.getURL(imgUrl);
         
-        browser.storage.local.set({ tidBits_utube_hideseen_enabled: isHidden });
+        const obj = {};
+        obj[STORAGE_UTUBE_HIDESEEN] = isHidden;
+        browser.storage.local.set(obj);
     }
     function spotlightfunc(){        
         const thumbnails = document.getElementsByClassName('ytd-thumbnail');
         for (const thumb of thumbnails) {
-            thumb.classList.toggle('tidbits_spotlight');
+            thumb.classList.toggle(CLS_SPOTLIGHT);
         }
-        spotlightDiv.classList.toggle('tidbits_interactions_hidden');
+        spotlightDiv.classList.toggle(CLS_INTERACTED);
 
-        const isHidden = spotlightDiv.className.includes('tidbits_interactions_hidden');
-
-        let imgurl = '../icons/spotlight';
-        imgurl +=  isHidden? 'ON':'';
-        imgurl += '.png';
+        const isHidden = spotlightDiv.className.includes(CLS_INTERACTED);
+        const imgUrl = isHidden ? ICON_SPOTLIGHT_ON : ICON_SPOTLIGHT_OFF;
 
         const spotlightImg = spotlightDiv.getElementsByTagName('img')[0];
-        spotlightImg.src = browser.runtime.getURL(imgurl);
+        spotlightImg.src = browser.runtime.getURL(imgUrl);
     }
     
     const spotlightDiv = createInteraction(
         'tidbits_spotlight_btn', 
-        '../icons/spotlight.png', 
+        ICON_SPOTLIGHT_OFF, 
         'spotlight cursor', 
         spotlightfunc
     );
     const seenVidDiv = createInteraction(
         'tidbits_seenvid_btn',
-        seenVidsHidden ? '../icons/unhide.png' : '../icons/hide.png',
+        seenVidsHidden ? ICON_HIDE_OFF : ICON_HIDE_ON,
         'hide seen vids', 
         seenVidfunc
     );
@@ -205,7 +215,7 @@ function addInteractions(){
     interactionList.insertBefore(seenVidDiv, interactionList.firstChild);
 }
 
-//guide-section-title
+// aabb = {}
 // for (elem of document.getElementsByTagName("video")){
 //     aabb[elem.src] = 1;
 // }

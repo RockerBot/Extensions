@@ -1,3 +1,8 @@
+const STORAGE_TABS = 'tidBits_tabs';
+const URL_CS = "https://www.youtube.com/@CaptainSparklez2/videos";
+const URL_GPT = "https://chatgpt.com/";
+const URL_DISC = "https://discord.com/channels/";
+
 const IDs_toglable = ['shorts', 'pesu', 'qstk', 'portal'];
 //IDS are shorts pesu restore cs2
 function id2key(id){ return "tidBits_" + id + "_enabled"; }
@@ -45,8 +50,6 @@ document.addEventListener("contextmenu", e => {
     browser.windows.create(obj);
 });
 
-
-
 function handleToglable(targ){
     targ.classList.toggle("disabled")
     key = id2key(targ.id);
@@ -58,39 +61,41 @@ function handleToglable(targ){
 }
 function handleOtherClickable(targ){
     if( targ.id === 'restore'){
-        browser.storage.local.get(['tidBits_tabs'], (result) => {
-            if(!result.tidBits_tabs)return;
-            browser.storage.local.set({ tidBits_tabs: undefined})
-            for (tabId in result.tidBits_tabs){
-                tabUrl = result.tidBits_tabs[tabId]
-                browser.tabs.create({ url:tabUrl }).catch(e=>console.log('ErR',e))
+        browser.storage.local.get([STORAGE_TABS], (result) => {
+            if(!result[STORAGE_TABS])return;
+            const obj = {};
+            obj[STORAGE_TABS] = undefined;
+            browser.storage.local.set(obj)
+            for (tabId in result[STORAGE_TABS]){
+                tabUrl = result[STORAGE_TABS][tabId]
+                browser.tabs.create({ url: tabUrl }).catch(e=>console.log('ErR',e))
             }
         });
     }else if(targ.id === 'cs2'){
-        browser.tabs.query({ url:"https://www.youtube.com/@CaptainSparklez2/videos" })
+        browser.tabs.query({ url: URL_CS })
         .then(tabList=>{
             if (tabList.length > 0) browser.tabs.update( tabList[0].id,{active: true})
             else browser.tabs.create({
                 active: true,
-                url:"https://www.youtube.com/@CaptainSparklez2/videos",
+                url: URL_CS,
             });
         });
     }else if(targ.id === 'chatty'){
-        browser.tabs.query({ url:"https://chatgpt.com/*"})// ({ url:"https://chat.openai.com/" })
+        browser.tabs.query({ url:`${URL_GPT}*`})// ({ url:"https://chat.openai.com/" })
         .then(tabList=>{
             if (tabList.length > 0) browser.tabs.update( tabList[0].id,{active: true})
             else browser.tabs.create({
                 active: true,
-                url:"https://chatgpt.com/", // "https://chat.openai.com/",
+                url: URL_GPT, // "https://chat.openai.com/",
             });
         });
     }else if(targ.id === 'disc'){
-        browser.tabs.query({ url:"https://discord.com/channels/*" })
+        browser.tabs.query({ url: `${URL_DISC}*` })
         .then(tabList=>{
             if (tabList.length > 0) browser.tabs.update( tabList[0].id,{active: true})
             else browser.tabs.create({
                 active: true,
-                url:"https://discord.com/channels/@me",
+                url: `${URL_DISC}@me`,
             });
         });
     }else if(targ.id === 'debug'){

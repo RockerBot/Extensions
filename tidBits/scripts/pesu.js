@@ -1,3 +1,16 @@
+const STORAGE_PESU = 'tidBits_pesu_enabled';
+const MESSAGE_PESUTAB = "pesuTab";
+
+const URL_PESU = 'https://www.pesuacademy.com/';
+
+const CLS_SLIDER = 'tidbits_slider';
+const ID_CONTENT = 'CourseContentId';
+
+const ICON_AV = 'icons/av.png';
+const ICON_PPT = 'icons/ppt.png';
+const ICON_NOTE = 'icons/note.png';
+const ICON_MCQ = 'icons/mcq.png';
+
 subj_uuid = 0
 function registerElem(SRC, ALT, i){
     newElem = document.createElement("div");
@@ -6,16 +19,16 @@ function registerElem(SRC, ALT, i){
     newImg.alt = ALT;    
     newImg.width="24";
     newElem.appendChild(newImg);
-    newElem.className = "tidbits_slider";
+    newElem.className = CLS_SLIDER;
     newElem.addEventListener("click", e => {
-        anchor_elem = e.target.parentElement.parentElement.parentElement
+        anchor_elem = e.target.parentElement.parentElement.parentElement;
         anchor_elem.click();
         console.log(e.target, anchor_elem)
         setTimeout(()=>{
-            const tabler = document.getElementById("CourseContentId");
+            const tabler = document.getElementById(ID_CONTENT);
             if(!tabler)return;
             browser.runtime.sendMessage({
-                action: "pesuTab",
+                action: MESSAGE_PESUTAB,
                 subj: subj_uuid,
                 unit: anchor_elem.href.split("_")[1] ,
                 topic_count: tabler.getElementsByTagName('tbody')[0].children.length,
@@ -45,17 +58,17 @@ function handleSeqSlides(){
             child = li.children[0];
             if(child.children.length > 0)continue;
             wrapElem = document.createElement("div");
-            wrapElem.appendChild(registerElem("icons/av.png", "AV", 1));
-            wrapElem.appendChild(registerElem("icons/ppt.png", "PPT", 3));
-            wrapElem.appendChild(registerElem("icons/note.png", "NOTE", 4));
-            wrapElem.appendChild(registerElem("icons/mcq.png", "MCQ", 8));
+            wrapElem.appendChild(registerElem(ICON_AV, "AV", 1));
+            wrapElem.appendChild(registerElem(ICON_PPT, "PPT", 3));
+            wrapElem.appendChild(registerElem(ICON_NOTE, "NOTE", 4));
+            wrapElem.appendChild(registerElem(ICON_MCQ, "MCQ", 8));
             wrapElem.className ="tidbits_btn";
             child.appendChild(wrapElem);
             child.className +="tidbits_unit";
         }
 
         // numbering the rows
-        const courseContnet = document.getElementById('CourseContentId');
+        const courseContnet = document.getElementById(ID_CONTENT);
         if (courseContnet) {
             const tbody = courseContnet.getElementsByTagName('tbody')[0];
             if (!tbody) return;
@@ -79,7 +92,7 @@ function handleSeqSlides(){
 function handleRelog(){
     elem = document.getElementById("j_scriptusername");
     if(!elem)return false;
-    window.location="https://www.pesuacademy.com/";
+    window.location = URL_PESU;
     return true;
 }
 function handleMCQ(){
@@ -88,8 +101,8 @@ function handleMCQ(){
 }
 
 const utube_observer = new MutationObserver(function(mutations) {
-    browser.storage.local.get(['tidBits_pesu_enabled'], (result) => {
-        if(!result.tidBits_pesu_enabled)return;
+    browser.storage.local.get([STORAGE_PESU], (result) => {
+        if(!result[STORAGE_PESU])return;
         if(handleRelog())return;
         handleSeqSlides();
         handleMCQ();
