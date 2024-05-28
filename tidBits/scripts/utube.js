@@ -5,12 +5,13 @@ const utube_observer = new MutationObserver(function(mutations) {
         dropSelection('[title="Shorts"]');
         dropSelection('[is-shorts=""]');
         dropTagName("ytd-reel-shelf-renderer");
-        handleSeenVids();
-        searchSubBar();
     });
+    addInteractions();
+    handleSeenVids();
+    searchSubBar();
 });  
 utube_observer.observe(document.body, { childList: true, subtree: true, attributes: true });
-
+var seenVidsHidden = true;
 
 function dropSelection(selection){
     el = document.querySelector(selection)
@@ -20,17 +21,21 @@ function dropTagName(tagname){
     for (let elem of document.getElementsByTagName(tagname)) elem.remove();
 }
 function handleSeenVids(){
-    for( elem of document.getElementsByTagName("ytd-thumbnail") ){
-        if (elem.className.includes("tidbits_seen")) continue;
+    browser.storage.local.get(['tidBits_utube_hideseen_enabled'], (result) => {
+        seenVidsHidden = result.tidBits_utube_hideseen_enabled;
+        for( elem of document.getElementsByTagName("ytd-thumbnail") ){
+            if (elem.className.includes("tidbits_seen")) continue;
 
-        var line = elem.getElementsByTagName("ytd-thumbnail-overlay-resume-playback-renderer");
-        if (!line[0]) continue;
-        
-        if(line[0].children[0].style.width.replace("%","")-0x0 > 90){
-            console.log(line[0].children[0].style.width, elem);
-            elem.className +=" tidbits_seen ";
+            var line = elem.getElementsByTagName("ytd-thumbnail-overlay-resume-playback-renderer");
+            if (!line[0]) continue;
+            
+            if(line[0].children[0].style.width.replace("%","")-0x0 > 90){
+                console.log(line[0].children[0].style.width, elem);
+                elem.className +=" tidbits_seen ";
+                elem.className += seenVidsHidden?" tidbits_enable ":"";
+            }
         }
-    }
+    });
 }
 function hideAsub(sub, pattern){
     sub.classList.remove("tidbits_hide");
@@ -111,6 +116,93 @@ function searchSubBar(){
         inputLabelElem.innerText = `${sublist.length-2}`
         return;
     }
+}
+
+function addInteractions(){
+    const topBar = document.getElementsByTagName('ytd-masthead')[0];
+    if (!topBar) return;
+
+    const interactionList = topBar.querySelector("#buttons");
+    if (!interactionList || !interactionList.children[1]) return;
+
+    const modelInteraction = interactionList.children[1];
+    if (modelInteraction.tagName.toLowerCase().includes('div')) return;
+    if (!modelInteraction.getElementsByTagName('tp-yt-paper-tooltip')[0]) return;
+
+    const modelTooltip = modelInteraction.getElementsByTagName('tp-yt-paper-tooltip')[0];
+    
+    function createInteraction(id, imgUrl, tooltip, click){
+        const interaction = document.createElement('div');
+        interaction.className = "tidbits_interactions ";
+        interaction.id = id;
+
+        if (imgUrl){
+            const interactionImg = document.createElement('img');
+            interactionImg.src = browser.runtime.getURL(imgUrl);
+            interaction.appendChild(interactionImg);
+        }
+        const interactionTooltip = modelTooltip.cloneNode(false);
+        interaction.appendChild(interactionTooltip);
+
+        const interactionTooltipText = document.createElement('span');
+        interactionTooltipText.innerText = tooltip;
+        interactionTooltip.appendChild(interactionTooltipText);
+
+        interaction.onclick = click;
+
+        return interaction;
+    }
+
+    function seenVidfunc(){
+        const senVids = document.getElementsByClassName('tidbits_seen');
+        for (const vid of senVids) {
+            vid.classList.toggle('tidbits_enable');
+        }
+        seenVidDiv.classList.toggle('tidbits_interactions_hidden');
+
+        const isHidden = seenVidDiv.className.includes('tidbits_interactions_hidden');
+
+        let imgurl = '../icons/';
+        imgurl +=  isHidden? '':'un';
+        imgurl += 'hide.png';
+
+        const seenVidImg = seenVidDiv.getElementsByTagName('img')[0];
+        seenVidImg.src = browser.runtime.getURL(imgurl);
+        
+        browser.storage.local.set({ tidBits_utube_hideseen_enabled: isHidden });
+    }
+    function spotlightfunc(){        
+        const thumbnails = document.getElementsByClassName('ytd-thumbnail');
+        for (const thumb of thumbnails) {
+            thumb.classList.toggle('tidbits_spotlight');
+        }
+        spotlightDiv.classList.toggle('tidbits_interactions_hidden');
+
+        const isHidden = spotlightDiv.className.includes('tidbits_interactions_hidden');
+
+        let imgurl = '../icons/spotlight';
+        imgurl +=  isHidden? 'ON':'';
+        imgurl += '.png';
+
+        const spotlightImg = spotlightDiv.getElementsByTagName('img')[0];
+        spotlightImg.src = browser.runtime.getURL(imgurl);
+    }
+    
+    const spotlightDiv = createInteraction(
+        'tidbits_spotlight_btn', 
+        '../icons/spotlight.png', 
+        'spotlight cursor', 
+        spotlightfunc
+    );
+    const seenVidDiv = createInteraction(
+        'tidbits_seenvid_btn',
+        seenVidsHidden ? '../icons/unhide.png' : '../icons/hide.png',
+        'hide seen vids', 
+        seenVidfunc
+    );
+
+    interactionList.insertBefore(spotlightDiv, interactionList.firstChild);
+    interactionList.insertBefore(seenVidDiv, interactionList.firstChild);
 }
 
 //guide-section-title
