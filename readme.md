@@ -17,6 +17,8 @@ to check web-ext version:
     - making youtube shorts inconvienient to use
     - Restore hitory for when multiple browser windows are open
     - Opens all slides/notes/MCQs for a single unit
+    - grays out youtube videos that have been watched completely
+    - spotlights youtube thumbnails under the mouse
     - Quick links
     
 ## skipAlong
