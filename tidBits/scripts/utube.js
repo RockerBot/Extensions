@@ -4,6 +4,7 @@ const STORAGE_UTUBE_HIDESEEN = 'tidBits_utube_hideseen_enabled';
 const CLS_SEENVID = 'tidbits_seen';
 const CLS_ENABLED = 'tidbits_enable';
 const CLS_HIDE = 'tidbits_hide';
+const CLS_SHADOW = 'tidbits_shadow';
 const CLS_SPOTLIGHT = 'tidbits_spotlight';
 const CLS_INTERACTION = 'tidbits_interactions';
 const CLS_INTERACTED = 'tidbits_interacted';
@@ -190,6 +191,9 @@ function addInteractions(){
             thumb.classList.toggle(CLS_SPOTLIGHT);
         }
         spotlightDiv.classList.toggle(CLS_INTERACTED);
+
+        const shadowElem = document.getElementsByTagName('ytd-browse')[0].children[0];
+        shadowElem.classList.toggle(CLS_SHADOW);
 
         const isHidden = spotlightDiv.className.includes(CLS_INTERACTED);
         const imgUrl = isHidden ? ICON_SPOTLIGHT_ON : ICON_SPOTLIGHT_OFF;

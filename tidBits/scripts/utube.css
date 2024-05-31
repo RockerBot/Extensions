@@ -75,7 +75,11 @@ ytd-guide-entry-renderer:nth-of-type(10n){
     margin-right: 5px;
 }
 
-.tidbits_spotlight:hover{
+.tidbits_shadow{
     box-shadow: 0px 0px 0px 1000000px #000000d8;
+    z-index: 499999;
+}
+
+.tidbits_spotlight:hover{
     z-index: 999999;
 }
