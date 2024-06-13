@@ -4,7 +4,7 @@ document.addEventListener("click", e => {
             u:document.getElementById("uname").value,
             p:document.getElementById("pword").value
         };
-        chrome.storage.local.set({ tidBits_stacks: obj});
+        chrome.storage.local.set({ tidBits_portal_credentials: obj});
         window.close();
     }else if (e.target.className.includes("url")){        
         chrome.storage.local.get(['tidBits_portal_urls'], (result) => {
